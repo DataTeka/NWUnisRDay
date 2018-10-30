@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Build your website using R, RStudio and blogdown package</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Tatjana Kecojevic" />
+    <meta name="date" content="2018-10-31" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/ohsu.css" type="text/css" />
+    <link rel="stylesheet" href="css/ohsu-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Build your website using R, RStudio and blogdown package
+## DataTeka
+### Tatjana Kecojevic
+### 31 October 2018
+
+---
+
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/c1/Rlogo.png)
+???
+
+Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Rlogo.png)
+---
+
+class: inverse, middle
+
+Hi, Welcome to the **&lt;span style="color:#00B2EE"&gt;'Build your website using R, RStudio and blogdown package'&lt;/span&gt;** workshop.
+
+I'm Tanja! A Data Scientist at [DataTeka](https://datateka.com/). A year ago I quit my job in academia and moved to Belgrade to play a part in establishing data science in the Balkan region. Recently, I started an initiatve &lt;span style="color:#00B2EE"&gt;`klikR`&lt;/span&gt; for introducing Data Science through R to youngsters as their possible career option. [klikR's](http://klikr.rbind.io) website is created using &lt;span style="color:#00B2EE"&gt;`blogdown`&lt;/span&gt; 😃.  
+ 
+
+The goal of our workshop is to work through the material and to lern how to use [blogdown](https://cran.r-project.org/web/packages/blogdown/index.html) package to make a web site.
+
+---
+class: inverse, middle
+Go to &lt;https://github.com/DataTeka/NWUnisRDay&gt; to download the material.
+
+&lt;img src="images/GitHub_link1.png" width="550px" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="images/GitHub_link2.png" width="550px" style="display: block; margin: auto;" /&gt;
+---
+class: inverse, center, middle
+
+#Get Started 🤫😴
+&lt;img src="images/George_Desk.gif" width="600px" /&gt;
+
+---
+class: center, middle
+
+&lt;img src="images/rmd_hugo_blogdown.png" width="600px" /&gt;
+
+---
+## So what is blogdown?&lt;sup&gt;*&lt;/sup&gt;
+- [R Markdown](https://rmarkdown.rstudio.com) &lt;img src="https://www.rstudio.com/wp-content/uploads/2015/12/RStudio_Hex_rmarkdown.png" width="10%" align="right" /&gt;
+    - (relatively) simple syntax for writing documents
+    
+    - the simpler, the more portable (multiple output formats)
+    
+    - not only convenient (maintenance), but also reproducible
+    
+    - most features of R Markdown _and_ [**bookdown**](https://bookdown.org) (technical writing)!!
+
+--
+
+- [Hugo](https://gohugo.io) &lt;img src="https://gohugo.io/img/hugo.png" width="10%" align="right" /&gt;
+
+    - free, open-source, and easy to install (a single binary)
+    
+    - lightning fast (generates one page in one millisecond)
+    
+    - general-purpose (not only for blogs)
+
+.footnote[
+[\*] From Yihui: https://slides.yihui.name/2017-rmarkdown-UNL-Yihui-Xie.html#35.
+]
+
+---
+## Why not WordPress, Tumblr, Medium.com, Blogger.com, etc?&lt;sup&gt;*&lt;/sup&gt;
+- No R Markdown support (even math support is often nonexistent or awkward)
+
+--
+
+- Huge benefits of static websites compared to dynamic websites
+    - all static files, no PHP or databases, no login/password, work everywhere (even offline)
+    
+    - typically fast to visit (no computation needed on the server side), and easy to speed up via CDN
+.footnote[
+[\*] From Yihui: https://slides.yihui.name/2017-rmarkdown-UNL-Yihui-Xie.html#36.
+]
+
+---
+class: inverse, center, middle
+
+# Let us start practicing Elain's Dance!!! 😃🎵🎶
+&lt;img src="images/ElainDanceI.png" width="300px" style="display: block; margin: auto;" /&gt;
+
+---
+## Prep with GitHub
+
+The workshop will not go through [Happy Git with R](http://happygitwithr.com) to connect RStudio with your GitHub account.
+
+
+&lt;img 
+src="http://happygitwithr.com/img/watch-me-diff-watch-me-rebase-smaller.png" align="middle" img width="60%"  
+/&gt;
+
+
+We are going to assume that you are already familiar and have done:
+
+☑️ Capter 5: [Register a GitHub account ](http://happygitwithr.com/github-acct.html)
+
+☑️ Chapter 6: [Install or upgrade R and RStudio ](http://happygitwithr.com/install-r-rstudio.html)
+
+---
+Go to your GitHub account and create a new repository
+&lt;img src="images/New_Repo.png" width="200px" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+Give a meaningful name 
+&lt;img src="images/Create_New_Repo.png" width="300px" style="display: block; margin: auto;" /&gt;
+
+Copy repo's **HTTPS** address
+&lt;img src="images/HTTPS_GitHub.png" width="350px" style="display: block; margin: auto;" /&gt;
+
+---
+Open a new project in RStudio: **File** ➡️ **New Project...**
+&lt;img src="images/RS_New_Project.png" width="250px" style="display: block; margin: auto;" /&gt;
+Select **Version Control** ➡️ **Git**
+&lt;img src="images/Select_Version_Control.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+Paste the address of your Git repo  
+&lt;img src="images/set_up_git_connection.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+## Install the packages
+
+Install &lt;span style="color:#EEAD0E"&gt;`blogdown`&lt;/span&gt;*&lt;/sup&gt;
+
+
+```r
+install.packages("blogdown")
+```
+
+Install &lt;span style="color:#EE1289"&gt;`Hugo`&lt;/span&gt; using blogdown
+
+```r
+blogdown::install_hugo()
+```
+
+If you already got those packages installed you can chech to update your &lt;span style="color:#EE1289"&gt;`Hugo`&lt;/span&gt; package
+
+```r
+blogdown::hugo_version() # check version
+blogdown::update_hugo() # force an update
+```
+ 
+.footnote[
+[\*] If you having trouble installing the package try:
+
+`install.packages("blogdown", repos = "http://cran.us.r-project.org")`.🤞
+]
+
+---
+class: inverse, center, middle
+# Let's build a website...
+
+&lt;img src="images/Cosmo.jpg" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+##Build a website
+
+We'll adopt *simple is beautiful* approch and start building a website using a `default theme`*&lt;/sup&gt;.
+
+
+```r
+blogdown::new_site()
+```
+
+To use a different theme (for example: `hugo-academic`):
+
+
+```r
+blogdown::new_site(theme = "gcushen/hugo-academic", 
+                   theme_example = TRUE)
+```
+
+To see the current **Hugo themes** go to &lt;https://themes.gohugo.io/&gt;.
+
+.footnote[
+[\*]Let the knowledge and familiarity with `blogdown` and `Hugo` grow first.🧐 Once you get familiour with `blogdown` and `Hugo` you can always swich to a different theme. 💇
+https://bookdown.org/yihui/blogdown/other-themes.html
+]
+
+---
+###Structure of a HUGO site
+.pull-left[
+&lt;img src="images/Site_Structure.png" width="200px" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/main_structure.png" width="200px" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;https://gohugo.io/getting-started/directory-structure/&gt;
+
+Note which folders are empty at the top level of your project:
+&lt;img src="images/empty_dir_str.png" width="200px" style="display: block; margin: auto;" /&gt;
+&lt;https://gohugo.io/themes/theme-components/&gt;
+
+---
+### Serve site
+
+In console type:
+
+```r
+blogdown::serve_site()
+```
+
+or, from `Addins` menue select `servesite` 
+
+&lt;img src="images/Serve_Site.png" width="200px" style="display: block; margin: auto;" /&gt;
+
+Don't try to view your site in your teeny RStudio viewer, instead click on &lt;span style="color:#00B2EE"&gt;`Show in new window`&lt;/span&gt;.
+
+&lt;img src="images/show_in_new_window.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+### Notation we will adopt
+
+- **Trailing slash** will indicate a directory name, e.g. `content/` means we are refering to a directory called *content*, not to a file named *content*.
+
+&lt;img src="images/trailing_slash.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+- **Leading slash** indicate the root directory of your *project website*, e.g. `/content/about.md` means we are refering to `about.md` file which is under the root directory of the website project.  
+
+&lt;img src="images/leading_slash.png" width="150px" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+# Let's edit our website...
+
+&lt;img 
+src=https://media.giphy.com/media/l0DEKov4X5Yee3cOI/giphy.gif align="middle" img width="60%"  
+/&gt;
+
+---
+class: inverse, center, middle
+#Step 1: logo 🛠⚙️💡
+
+---
+###&lt;span style="color:#00B2EE"&gt;Step 1:&lt;/span&gt; add a logo
+&lt;img src="images/DataTekaHex.png" width="80px" style="display: block; margin: auto auto auto 0;" /&gt;
+The logo file belongs in the `/static/` directory:
+&gt; `/static/` stores all the static content for your future website: images, CSS, JavaScript, etc. When Hugo builds your site, all assets inside your static directory are copied over as-is.
+
+&lt;https://gohugo.io/getting-started/directory-structure/&gt;
+
+1. Move `01-images` folder to `/static/`
+
+2. Rename folder `images` (so now you have a `static/images/` folder with 2 .png files in it)
+
+3. Update &lt;span style="color:#EE2C2C"&gt;`config.toml`&lt;/span&gt; and save
+&lt;img src="images/update_config.png" width="250px" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+###&lt;span style="color:#104E8B"&gt;Step 1:&lt;/span&gt; we've got a logo! 
+
+&lt;img src="images/logo_page01.png" width="800px" style="display: block; margin: auto;" /&gt;
+---
+###&lt;span style="color:#4A708B")&gt;Step 1:&lt;/span&gt; we've learnt 🥁🎺😎
+
+`/themes/&lt;THEME&gt;/static/images/logo.png` 
+
+can be overwritten by 
+
+`/static/images/&lt;DataTeka_logo.png&gt;`
+
+.pull-left[
+&lt;img src="images/overwrite_logo1.png" width="200px" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="images/overwrite_logo2.png" width="200px" style="display: block; margin: auto;" /&gt;
+]
+
+.footnote[
+Note that this would work only with Hugo templates that have 'standard' Hugo folder structure.💡
+]
+---
+
+class: inverse, center, middle
+#Step 2: about 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 2:&lt;/span&gt; update the *about* page
+
+1. Move `02-about.md` file to `/content/`
+
+2. Delete the existing file `about.md`
+
+3. Rename `2-about.md` → `about.md`
+---
+
+###&lt;span style="color:#104E8B"&gt;Step 2:&lt;/span&gt; we've got a logo! 
+
+&lt;img src="images/about_page02.png" width="800px" style="display: block; margin: auto;" /&gt;
+---
+
+###&lt;span style="color:#4A708B")&gt;Step 2:&lt;/span&gt; we've learnt 🥁🎺😎
+
+&gt;All `content` for your website will live inside this directory. Each top-level folder in Hugo is considered a content section. For example, if your website has two main sections *posts* and *about* page, there will be a directorie at `content/posts` and a file `content/about.md`.
+
+&lt;https://gohugo.io/getting-started/directory-structure/&gt;
+
+&lt;img src="images/about_structure.png" width="200px" style="display: block; margin: auto;" /&gt;
+---
+class: inverse, center, middle
+#Step 3: emojis 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 3:&lt;/span&gt; enable the emojis 😁🤷🤦
+
+Note the amendments you need to do to the top of your `config.toml` file.  
+
+&lt;img src="images/emoji_config.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+Save the change and check the *about* page... it should show a ❤️
+
+---
+###&lt;span style="color:#4A708B")&gt;Step 3:&lt;/span&gt; we've learnt 🥁🎺😎
+
+&gt; In your `config` file, you can direct Hugo as to how you want your website rendered, control your website’s menus, and arbitrarily define site-wide parameters specific to your project.
+
+&lt;https://gohugo.io/getting-started/configuration/&gt;
+
+---
+class: inverse, center, middle
+#Step 4: navigation bar 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 4:&lt;/span&gt; edit your navigation bar
+
+Make the changes to your `config.toml` file:
+
+&lt;img src="images/navigation_bar_config.png" width="350px" style="display: block; margin: auto auto auto 0;" /&gt;
+
+Save the changes, Serve Site and check the links.
+
+---
+###&lt;span style="color:#4A708B")&gt;Step 4:&lt;/span&gt; we've learnt 🥁🎺😎
+
+The `[[menu.main]]` in your `config` file enables you to edit and add navigation options.  
+
+&gt; A menu entry in a menu-template has specific variables and functions to make menu management easier.
+
+&lt;https://gohugo.io/variables/menus/&gt;
+---
+class: inverse, center, middle
+
+##Are we starting to feel confortable learning Elain's moves?! 😃🎵🎶
+
+&lt;img src="images/ElainDanceII.png" width="300px" /&gt;
+---
+class: inverse, center, middle
+#Step 5: css 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 5:&lt;/span&gt; customise the look 💅💄🎨
+
+1) In `/static/` create a new directory `css`
+
+--
+
+2) Move `05-datateka.css` file to `/static/css/`
+
+--
+
+3) Rename `05-datateka.css` --&gt; `datateka.css`
+
+&lt;img src="images/css_structure.png" width="200px" style="display: block; margin: auto auto auto 0;" /&gt;
+--
+
+4) In `config.toml`, add the highlighted line:
+
+&lt;img src="images/css_config.png" width="500px" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+###&lt;span style="color:#104E8B"&gt;Step 5:&lt;/span&gt; we've got a look! 
+&lt;img src="images/css_page05.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+###&lt;span style="color:#4A708B")&gt;Step 5:&lt;/span&gt; we've learnt 🥁🎺😎
+
+We have seen that 
+
+`/themes/&lt;THEME&gt;/static/css/main.css`
+
+could be overwritten by style rules present in:
+
+`/static/&lt;css/datateka.css&gt;`
+
+&lt;img src="images/overwrite_css_structure.png" width="300px" style="display: block; margin: auto;" /&gt;
+---
+class: inverse, center, middle
+#Step 6: Font Awesome 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 6:&lt;/span&gt; use Font Awesome 
+
+&gt; Font Awesome is a font and icon toolkit based on CSS and LESS.
+
+&lt;https://en.wikipedia.org/wiki/Font_Awesome&gt;
+
+Go [here](https://fontawesome.com/v4.7.0/get-started/) to enter your email address and receive a Font Awesome embed code. We'll use the one you've downloaded with the workshop boundle for today's demo.
+
+To use them, you need 2 things:
+
+- the Font Awesome CSS file, and
+
+- a script that directs your site to where the fonts can be found (via Font Awesome's Content Delivery Network, or CDN)
+
+
+---
+###&lt;span style="color:#00B2EE"&gt;Step 6:&lt;/span&gt; use Font Awesome 
+
+1a) Move 06-font-awesome.min.css to `/static/css/`
+
+2a) Rename `06a-font-awesome.min.css` --&gt; `font-awesome.min.css`
+
+3b) Create a new directory in `layouts/` called `partials`
+
+4b) Move other `06b-head_custom.html` and `06b-nav.html` to `/layouts/partials/` and renamed them by removing `06b-` from the files names.
+
+&lt;img src="images/fontawsome_structure.png" width="300px" style="display: block; margin: auto;" /&gt;
+---
+###&lt;span style="color:#00B2EE"&gt;Step 6:&lt;/span&gt; use Font Awesome 
+
+Make changes to these sections in your `config.toml`:
+
+&lt;img src="images/fontawsome_confin.png" width="700px" style="display: block; margin: auto auto auto 0;" /&gt;
+
+---
+###&lt;span style="color:#104E8B"&gt;Step 6:&lt;/span&gt; look at our awesome font and icons! 
+
+&lt;img src="images/overview_fontawsome06.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+---
+###&lt;span style="color:#4A708B")&gt;Step 6:&lt;/span&gt; we've learnt 🥁🎺😎
+
+`/themes/&lt;THEME&gt;/layouts/partials/*&lt;PARTIALNAME&gt;.html`
+
+Could be overwritten by:
+
+`/layouts/partials/*&lt;PARTIALNAME&gt;.html`
+
+The `&lt;PARTIALNAME&gt;`s must match; unless you want to edit how the partials are called within your templates:
+
+  `{{ partial "&lt;PATH&gt;/&lt;PARTIAL&gt;.html" .  }}`
+  
+https://gohugo.io/templates/partials/
+
+&lt;img src="images/learn_structure_fontawsome.png" width="250px" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+class: inverse, center, middle
+#Step 7: homepage 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 7:&lt;/span&gt; create a homepage 
+
+Where to move the file `07-index.html`?
+
+1) Move `07-index.html` to `/layouts/`&lt;sup&gt;*&lt;/sup&gt; 
+
+2) Rename `07-index.html` to `index.html`
+
+3) Edit the `config.toml` file
+
+&lt;img src="images/homepage_text.png" width="600px" style="display: block; margin: auto auto auto 0;" /&gt;
+
+.footnote[
+[*] NOT to /layouts/partials/
+]
+
+---
+###&lt;span style="color:#104E8B"&gt;Step 7:&lt;/span&gt; look at our home page! 
+
+&lt;img src="images/overview_homepage07.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+###&lt;span style="color:#4A708B")&gt;Step 7:&lt;/span&gt; we've learnt 🥁🎺😎
+
+Even when there is no `index.html` file here:
+ 
+`/themes/&lt;THEME&gt;/layouts/index.html`
+
+--
+
+We can make one that serves as the homepage here:
+
+`/layouts/index.html`
+
+&lt;img src="images/index_structure.png" width="200px" style="display: block; margin: auto;" /&gt;
+
+--
+
+The filename `index.html` has special status in Hugo, and is **not** a partial layout template.
+
+You could also force a homepage by creating an `_index.md` file that lives at the root of your `/content/` folder (i.e., `/content/_index.md`)
+
+&lt;https://gohugo.io/templates/homepage/&gt;
+---
+class: inverse, center, middle
+#Step 8: posts 🛠⚙️💡
+---
+###&lt;span style="color:#00B2EE"&gt;Step 8:&lt;/span&gt; adding a post 
+
+Add a post section to your navigation bar by adding the highlighted lines to your `config.toml` file.  
+
+&lt;img src="images/post_config.png" width="400px" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+###&lt;span style="color:#104E8B"&gt;Step 8:&lt;/span&gt; we've got a link for the posts!
+
+
+&lt;img src="images/overview_post08.png" width="600px" style="display: block; margin: auto;" /&gt;
+---
+###&lt;span style="color:#00B2EE"&gt;Step 8:&lt;/span&gt; write a post ✍️
+Go to `Addins` and select `New Post` to which you are going to add the properties
+.pull-left[
+&lt;img src="images/add_a_post.png" width="200px" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+&lt;img src="images/create_a_post.png" width="275px" style="display: block; margin: auto;" /&gt;
+]
+
+You can start writting your post as an R Markdown file 😊
+&lt;img src="images/edit_write_post.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+---
+###&lt;span style="color:#104E8B"&gt;Step 8:&lt;/span&gt; we've got our first posts!
+
+&lt;img src="images/overview_post01.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+###&lt;span style="color:#00B2EE"&gt;Step 8:&lt;/span&gt; removing the `default` posts 🤷
+
+Click on the `Files` tab and navigate to `/content/posts/` directory to get the list of the *posts files*
+
+--
+
+Select the once you don't want and click on `Delete` ❌. 
+
+&lt;img src="images/delete_posts.png" width="300px" style="display: block; margin: auto;" /&gt;
+
+--
+
+`Serve Site` to have a look
+
+```r
+blogdown::serve_site()
+```
+
+---
+###&lt;span style="color:#104E8B"&gt;Step 8:&lt;/span&gt; look at your posts!
+
+&lt;img src="images/overview_posts02.png" width="700px" style="display: block; margin: auto;" /&gt;
+---
+###&lt;span style="color:#4A708B")&gt;Step 8:&lt;/span&gt; we've learnt 🥁🎺😎
+
+Adding a post is easy by selection the option `New Post` from the `Addins` drop-down menu and writing it as a `.Rmd` file. This file will be authomaticaly placed inside `/content/posts/` directory.
+
+`/content/posts/workshop-at-nwurday-with-tanja.Rmd`
+
+&lt;img src="images/posts_structure.png" width="400px" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+class: inverse, center, middle
+
+##Let's do Elain's Dance!!! 😃🎵🎶
+
+&lt;img src="images/Elain_dance.gif" width="500px" /&gt;
+---
+
+class: inverse, center, middle
+
+# Deploy your website 🧞
+
+---
+### Deployment
+
+Click on the `Git` tab and select all of the files to `commit`
+
+&lt;img src="images/git_commit.png" width="350px" style="display: block; margin: auto auto auto 0;" /&gt;
+
+&lt;img src="images/first_commit.png" width="600px" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+
+Click to `push`
+
+&lt;img src="images/git_push.png" width="700px" style="display: block; margin: auto auto auto 0;" /&gt;
+
+&lt;img src="images/git_push01.png" width="500px" style="display: block; margin: auto auto auto 0;" /&gt;
+---
+### Check your Git Repo
+
+&lt;img src="images/gitrepo.png" width="750px" style="display: block; margin: auto;" /&gt;
+---
+class: inverse, center, middle
+
+###Congratulations! You are a step away from making your website up and running!!!! 👍😃
+
+&lt;img src="images/kramer_congrats.gif" width="300px" /&gt;
+---
+### Have you heard about [Netlify](https://www.netlify.com/)?
+
+&lt;img src="images/yuhui_xie.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+&gt; Consider Netlify instead of GitHub Pages for Your Static Websites.
+
+&gt; Do not use Github pages or the *.github.io subdomain. Use Netlify instead. Netlify is the new and much better Github pages.
+
+*Yihui Xie*
+
+&lt;https://yihui.name/en/2017/06/netlify-instead-of-github-pages/&gt;
+---
+
+&lt;img src="images/deploy_in_netlify.png" width="700px" style="display: block; margin: auto;" /&gt;
+
+&gt; Deploying in Netlify through GitHub is smooth.
+
+&gt; When you are ready to deploy, commit your changes and push to [GitHub](https://github.com), then go online to [Netlify](https://www.netlify.com/).
+
+*Alison Presmanes Hill*
+
+&lt;https://alison.rbind.io/post/up-and-running-with-blogdown/&gt;
+---
+Go to [Netlify](https://www.netlify.com/) and open an account (the esiest is by using your [GitHub](https://github.com) login).
+
+Click on *New site from Git* button
+
+&lt;img src="images/new_site_from_git.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+--
+
+Select *GitHub* option to *Continue Deployment*.
+
+&lt;img src="images/continue_deployment.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+Selct your site repo and klick on *Deploy site* button at the bottom of the page.
+
+&lt;img src="images/deploy_site.png" width="700px" style="display: block; margin: auto;" /&gt;
+---
+Go into *Site Setting* and click on *Change site name*. 
+
+&lt;img src="images/change_site_name.png" width="700px" style="display: block; margin: auto;" /&gt;
+---
+&lt;img src="images/site_on_netlify.png" width="700px" style="display: block; margin: auto;" /&gt;
+---
+### You can hoste your site as `rbind` subdomain 
+&lt;img src="images/rbind.png" width="10%" align="left" /&gt;
+[rbind](https://github.com/rbind) - Bind all websites in the `R` and `stats` community. 
+    
+
+&lt;http://klikr.rbind.io&gt; is an example of what to request if you wish to move your site to [rbind](https://github.com/rbind).    
+&lt;img src="images/rbind_support.png" width="500px" style="display: block; margin: auto;" /&gt;
+---
+### Final step: update `baseurl` in your `config.toml`
+&lt;img src="images/baseurl.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+On [Netlify](https://www.netlify.com/), go into *Domain settings -&gt; Custom domain* and update
+
+&lt;img src="images/set_custom_domain.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+&lt;https://support.rbind.io/about/&gt;
+---
+
+### Some useful links
+
+[RStudio: Making websites with Markdown](https://www.rstudio.com/resources/webinars/introducing-blogdown/)
+
+A tutorial on using `blogdown`.
+
+--
+
+&lt;https://blogdown-demo.netlify.com&gt; GitHub: &lt;https://github.com/apreshill/blogdown-demo&gt;
+
+A minimal website example using blogdown site by [Alison Presmanes Hill](https://alison.rbind.io).
+
+--
+[Up and running with blogdown](https://alison.rbind.io/post/up-and-running-with-blogdown/#build-your-site-in-rstudio)
+
+[Alison's](https://amber.rbind.io/) well structurd and easy to follow tutorial higlighting the key steps when building a weisite using blogdown.
+
+--
+
+[`blogdown`: Creating Websites with R Markdown](https://bookdown.org/yihui/blogdown/) 
+
+by [Yihui Xie](https://yihui.name/), [Amber Thomas](https://amber.rbind.io/), [Alison Presmanes Hill](https://alison.rbind.io)
+---
+
+class: inverse, center, middle
+##Do the Cosmo Dance?! 🤪🎵🎶
+&lt;img src="images/Cosmo_Dance.gif" width="500px" /&gt;
+
+---
+class: center, middle
+
+##Thanks!
+
+To Yihui and RStudio for the blogdown package
+
+To the rbind group for support
+
+Special thanks to Alison for sharing her knowledge and making her material reproducable and freely available. This workshop has been created with Alison's support and it is based on her 'up and running with blogdown tutorial' available at &lt;https://github.com/apreshill/blogdown-workshop&gt;
+
+Please provide a feedback by filling the form:
+
+&lt;https://datateka.shinyapps.io/NURDay_Form&gt;
+
+[www.datateka.com](www.datateka.com) 
+
+[tanjakec.github.io](tanjakec.github.io)
+
+@DataTeka 
+
+@Tatjana_Kec
+
+
+Slides created via `R` package [**xaringan**](https://github.com/yihui/xaringan).
+
+The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

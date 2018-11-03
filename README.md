@@ -5,11 +5,14 @@ This repo contains material for [NURDay]( https://www.eventbrite.co.uk/e/northwe
 
 There are two folders:
 -	Slides for the workshop created using xaringan package
--	Files used for building the website: nwurdayblogdownws.netlify.com
+-	Files used for building the website: <https://nurdayblogdownws.netlify.com>
 
 There are 3 sections: 
+
 i.	connect to GitHub
+
 ii.	build your website
+
 iii.	deploy your website
 
-Accompanying [slides]( https://tanjakec.github.io/blogdown_workshop/blogdown_workshop.html)
+Accompanying [slides](https://tanjakec.github.io/blogdown_workshop/blogdown_workshop.html)
